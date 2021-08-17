@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+
 //1. Import coingecko-api
 const CoinGecko = require("coingecko-api");
 
@@ -7,14 +8,23 @@ const CoinGecko = require("coingecko-api");
 const CoinGeckoClient = new CoinGecko();
 
 //3. Make calls
-const gecko = async () => {
-  let data = await CoinGeckoClient.ping();
-  console.log("data", data);
-  return data;
-};
 
 function App() {
-  return <div className="App">{gecko}</div>;
+  const [ping, setPing] = useState({});
+  useEffect(() => {
+    const gecko = async () => {
+      let data = await CoinGeckoClient.coins.all();
+      // console.log("data", data);
+      // data = JSON.stringify(data);
+      data = data;
+      console.log("data", data);
+      setPing(data);
+      // return data;
+    };
+    gecko();
+  }, []);
+  console.log("ping", typeof ping.data);
+  return <div className="App">{ping.data.map((index) => index.id)}</div>;
 }
 
 export default App;
