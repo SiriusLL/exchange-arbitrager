@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import Form from "./components/Form.jsx";
 
 //1. Import coingecko-api
 const CoinGecko = require("coingecko-api");
